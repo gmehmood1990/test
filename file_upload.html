@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Media File Uploader</title>
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .file-preview {
+            margin-top: 20px;
+        }
+        img {
+            max-width: 100%;
+            max-height: 300px;
+        }
+</style>
+</head>
+<body>
+<h1>Upload a Media File</h1>
+<p>Select an image, PDF, or Word document from your device:</p>
+ 
+    <input type="file" id="fileInput" accept="image/*,.pdf,.doc,.docx" />
+<p id="fileName"></p>
+ 
+    <div class="file-preview" id="filePreview"></div>
+ 
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const fileName = document.getElementById('fileName');
+        const filePreview = document.getElementById('filePreview');
+ 
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+ 
+            if (file) {
+                fileName.textContent = `Selected file: ${file.name}`;
+                filePreview.innerHTML = '';
+ 
+                if (file.type.startsWith('image/')) {
+                    const img = document.createElement('img');
+                    img.src = URL.createObjectURL(file);
+                    filePreview.appendChild(img);
+                } else {
+                    filePreview.textContent = 'File preview not available for this type.';
+                }
+            } else {
+                fileName.textContent = '';
+                filePreview.innerHTML = '';
+            }
+        });
+</script>
+</body>
+</html>
+
